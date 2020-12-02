@@ -268,18 +268,22 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  // let newStr = '';
-  // str.forEach((char) => {
-  //   const newChar = char;
-  //   newStr += (newChar.charCodeAt() + 13).toString(16);
-  // });
-  // return newStr;
-  return str.reduce((acc, cur) => {
-    const Cur = cur;
-    let Acc = acc;
-    Acc += (Cur.charCodeAt + 13).toString(16);
-    return Acc;
-  }, '');
+  let string = '';
+  for (let i = 0; i < str.length; i += 1) {
+    if (/[?! ]/.test(str[i])) {
+      string += str[i];
+    } else {
+      const code = str[i].charCodeAt();
+      if (code - 13 >= 97 && code >= 97) {
+        string += String.fromCharCode(code - 13);
+      } else if (code - 13 >= 65 && code < 97) {
+        string += String.fromCharCode(code - 13);
+      } else {
+        string += String.fromCharCode(code + 13);
+      }
+    }
+  }
+  return string;
 }
 
 /**

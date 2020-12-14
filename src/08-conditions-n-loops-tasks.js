@@ -412,8 +412,19 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const m3 = [];
+  m1.forEach((_, i) => {
+    m3[i] = [];
+    m2[0].forEach((__, j) => {
+      let sum = 0;
+      m1[0].forEach((___, k) => {
+        sum += m1[i][k] * m2[k][j];
+      });
+      m3[i][j] = sum;
+    });
+  });
+  return m3;
 }
 
 
@@ -447,8 +458,22 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+
+function evaluateTicTacToePosition(pos) {
+  if ((pos[0][0] === pos[1][1] && pos[1][1] === pos[2][2])
+    || (pos[0][2] === pos[1][1] && pos[1][1] === pos[2][0])) {
+    return pos[1][1];
+  }
+  let win;
+  pos.forEach((_, i) => {
+    if (pos[i][0] === pos[i][1] && pos[i][1] === pos[i][2]) {
+      [win] = [pos[i][0]];
+    }
+    if (pos[0][i] === pos[1][i] && pos[1][i] === pos[2][i]) {
+      [win] = [pos[0][i]];
+    }
+  });
+  return win;
 }
 
 
